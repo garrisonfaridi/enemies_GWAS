@@ -4,19 +4,16 @@
 #SBATCH --error=logs/gemma_kinship.err
 #SBATCH --time=01:00:00
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=8
+#SBATCH --mem=4G
 
-# Why use phenotype file, ensures the rows in the kinship matrix correspond exactly to the phenotype data in later testing
-# Checks alignmnet
-
+module purge
 module load gemma/0.98.4
 
-# Run GEMMA kinship matrix computation
-gemma \
-  -g genotypes/genotypes_305 \
-  -p dat_tot_forGemma_Enemies.csv \
-  -gk 1 \
-  -o kinship_enemy_305
+gemma -bfile genotypes/genotypes_305 \
+      -p enemies_forGemma/blups_SC_imputed_k7_forGemma.csv \
+      -miss 0.1 \
+      -gk 2 \
+      -o kinship_enemy_305_impk7_miss0.1
 
 
 
