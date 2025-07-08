@@ -10,10 +10,10 @@
 module load gemma/0.98.4
 
 # File paths
-PHENO="dat_tot_forGemma_Enemies.csv"                     
+PHENO="enemies_forGemma/blups_SC_imputed_k7_forGemma.csv"                     
 BED="genotypes/genotypes_305"                        # Prefix for .bed/.bim/.fam files
-KINSHIP="output/kinship_enemy_305.cXX.txt"          # Kinship matrix
-OUTDIR="gemma_outputs_individuals_t100"
+KINSHIP="output/kinship_enemy_305_impk7_miss0.1.cXX.txt"          # Kinship matrix
+OUTDIR="gemma_outputs_individuals_KNN_imputed_k7_kin_miss0.1"
 
 # Create output directory if it doesn't exist
 mkdir -p $OUTDIR
@@ -27,5 +27,7 @@ gemma -bfile $BED \
       -p $PHENO \
       -n $TRAIT_NUM \
       -lmm 1 \
+      -maf 0.03 \
+      -miss 0.1 \
       -o enemy_trait_${TRAIT_NUM} \
       -outdir $OUTDIR
